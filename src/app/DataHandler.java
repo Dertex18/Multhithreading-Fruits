@@ -1,25 +1,29 @@
 package app;
 
-import java.util.concurrent.atomic.AtomicInteger;
 import static java.lang.Thread.currentThread;
 
 public class DataHandler {
 
     String[] fruits = new DataRepository().getData();
 
-    public DataHandler(String name) {
+    public DataHandler() {
     }
 
     public void getOutput() {
 
-        synch (this) {
+
+        synchronized ( this) {
             StringBuilder sb = new StringBuilder();
-            count = new AtomicInteger(1);
+            int counter = 0;
             for (String fruit : fruits) {
+                counter++;
                 sb.append(String.format("(%d) %s ",
-                        count, fruit));
+                        counter, fruit));
             }
+
             System.out.println(currentThread().getName() + ": " + sb);
         }
     }
+
+
 }
